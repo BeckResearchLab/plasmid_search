@@ -4,5 +4,8 @@
 * `mv ftp.ncbi.nlm.nih.gov/refseq/release/plasmid .` (renaming subdirectory to root of reposotory)
 * hmmer-3.1b2-macosx-intel (folder name/location with all commands for hmmer, downloadable content)
 
+* `zcat plasmid/plasmid.*.protein.faa.gz > plasmid/protein.faa`
+* `gzip plasmid/protein.faa`
+
 Run hmmer with:
-* `hmmscan -o Resfams.log --tblout Resfams.tbl --domtblout Resfams.dom --pfamtblout Resfams.pfam --notextw hmm_databases/Resfams.hmm plasmid/plasmid.1.protein.faa.gz`
+* `hmmscan -o Resfams.log --tblout Resfams.tbl --domtblout Resfams.dom --pfamtblout Resfams.pfam --notextw hmm_databases/Resfams.hmm plasmid/protein.faa.gz`
