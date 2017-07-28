@@ -6,6 +6,9 @@
 
 * `gzcat plasmid/plasmid.*.protein.faa.gz > plasmid/protein.faa`
 * `gzip plasmid/protein.faa`
+* `Created enviornment called 'biopython' and imported 'Bio'`
 
 Run hmmer with:
 * `hmmscan -o Resfams.log --tblout Resfams.tbl --domtblout Resfams.dom --pfamtblout Resfams.pfam --notextw hmm_databases/Resfams.hmm plasmid/protein.faa.gz`
+OR
+* `hmmscan -o Resfams.log --cut_ga --tblout Resfams.tbl --domtblout Resfams.dom --pfamtblout Resfams.pfam --notextw hmm_databases/Resfams.hmm plasmid/protein.faa.gz`
