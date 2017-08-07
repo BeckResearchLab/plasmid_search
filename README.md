@@ -13,7 +13,7 @@ Run hmmer with:
 OR
 * `hmmscan -o Resfams.log --cut_ga --tblout Resfams.tbl --domtblout Resfams.dom --pfamtblout Resfams.pfam --notextw hmm_databases/Resfams.hmm plasmid/protein.faa.gz`
 
-* 'then use 'df_min_evalue = df.loc[df.groupby("query")["full_evalue"].idxmin()] df_min_evalue.shape' to find the shape of data'
+* then use `df_min_evalue = df.loc[df.groupby("query")["full_evalue"].idxmin()] df_min_evalue.shape` to find the shape of data
 
-* 'to find the smalles evalue use 'df_min_evalue.loc[df_min_evalue["query"] == 'NP_774964.1']' (this ID is an example).'
+* to find the smalles evalue use `df_min_evalue.loc[df_min_evalue["query"] == 'NP_774964.1']` (this ID is an example).
 
