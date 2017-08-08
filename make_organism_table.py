@@ -13,8 +13,12 @@ with gzip.open("plasmid/plasmid.1.protein.faa.gz", "rt") as handle:
 with gzip.open("plasmid/plasmid.3.protein.faa.gz", "rt") as handle:
     record_dict3 = SeqIO.to_dict(SeqIO.parse(handle, "fasta"))
 
+with gzip.open("plasmid/plasmid.nonredundant_protein.1.protein.faa.gz", "rt") as handle:
+    record_dictnr = SeqIO.to_dict(SeqIO.parse(handle, "fasta"))
+
 plasmid_sequences = record_dict1.copy()
 plasmid_sequences.update(record_dict3)
+plasmid_sequences.update(record_dictnr)
 
 print("creating pandas data frame from fasta data")
 rows_list = []
