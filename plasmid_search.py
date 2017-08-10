@@ -64,21 +64,31 @@ lineages_table = pd.read_csv('lineages-2017-08-07.csv.gz', low_memory=False)
 
 # Read in the catalog, note this is a huge file
 print("reading the refseq catalog")
-organism_table = pd.read_csv('RefSeq-release83.catalog.gz', 
+organism_table = pd.read_csv('RefSeq-release83.catalog.gz', sep='\t',
                             names=["taxid", "organism", "id", "gi", "db", 
-                                "status", "length"])
+                                "status", "length"],
+                            dtype={ "taxid" : np.int64,
+                                "organism" : object,
+                                "id" : object,
+                                "gi" : np.int64,
+                                "db" : object,
+                                "status" : object,
+                                "length" : np.int64 })
+print("discarding any non plasmid entities from the catalog")
+organism_table = organism_table.loc[organism_table["db"].str.contains("plasmid")]
+organism_table.to_csv('organism_table.tsv', sep='\t')
 
 # Join the catalog to the hmmscan data
 print("joining the catalog to the hmmscan data")
 df_min_organism = df_min_evalue.merge(organism_table, how='left', left_on = 'query', right_on = 'id')
 print(df_min_organism.shape)
-# we do this to attempt a free on the memory allocated to this table
-organism_table = []
+df_min_organism.to_csv('hmmscan_organism.tsv', sep='\t')
 
 # Join to the lineage file
 print("joining the hmmscan data with organism annotations to the lineage table")
 df_min_organism_lineages = df_min_organism.merge(lineages_table, how = 'left', left_on = 'organism', right_on = 'species')
 print(df_min_organism_lineages.shape)
+df_min_organism.to_csv('hmmscan_organism_lineage.tsv', sep='\t')
 
 # Process out some of the duplicates
 print("cleaning the table from duplicates")
