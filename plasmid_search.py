@@ -88,7 +88,7 @@ df_min_organism.to_csv('hmmscan_organism.tsv', sep='\t')
 print("joining the hmmscan data with organism annotations to the lineage table")
 df_min_organism_lineages = df_min_organism.merge(lineages_table, how = 'left', left_on = 'organism', right_on = 'species')
 print(df_min_organism_lineages.shape)
-df_min_organism.to_csv('hmmscan_organism_lineage.tsv', sep='\t')
+df_min_organism_lineages.to_csv('hmmscan_organism_lineage.tsv', sep='\t')
 
 # Process out some of the duplicates
 print("cleaning the table from duplicates")
