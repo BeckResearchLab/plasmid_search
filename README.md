@@ -5,7 +5,8 @@
 * `wget -m ftp://ftp.ncbi.nlm.nih.gov/refseq/release/release-catalog/RefSeq-release83.catalog.gz` (get the catalog that contains the species information)
 * `mv ftp.ncbi.nlm.nih.gov/refseq/release/release-catalog/RefSeq-release83.catalog.gz .` (move the release catalog to the local directory)
 * hmmer-3.1b2-macosx-intel (folder name/location with all commands for hmmer, downloadable content)
-* Created enviornment called 'biopython' and imported 'Bio'
+* Created enviornment called 'biopython' and imported 'Bio' _this step is deprecated_
+* Created conda envionment this way: `conda create -n sqlalchemy python=3.6`
 * a database on a mysql server must be created called plasmid_search
 
 ### these are deprecated, replased by the release catalog approach
