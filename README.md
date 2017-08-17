@@ -6,6 +6,7 @@
 * `mv ftp.ncbi.nlm.nih.gov/refseq/release/release-catalog/RefSeq-release83.catalog.gz .` (move the release catalog to the local directory)
 * hmmer-3.1b2-macosx-intel (folder name/location with all commands for hmmer, downloadable content)
 * Created enviornment called 'biopython' and imported 'Bio'
+* a database on a mysql server must be created called plasmid_search
 
 ### these are deprecated, replased by the release catalog approach
 * `gzcat plasmid/plasmid.*.protein.faa.gz > plasmid/protein.faa`
