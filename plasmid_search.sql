@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS hmmscan_min_evalue;
 CREATE TABLE `hmmscan_min_evalue` (
-		  `target` VARCHAR(256) PRIMARY KEY NOT NULL,
+		  `target` VARCHAR(256),
 		  `target_accession` VARCHAR(256),
 		  `query` VARCHAR(256),
 		  `query_accesion` VARCHAR(256),
@@ -24,7 +24,12 @@ CREATE TABLE `hmmscan_min_evalue` (
 
 LOAD DATA LOCAL INFILE 'hmmscan_min_evalue.tsv' INTO TABLE hmmscan_min_evalue
 	FIELDS TERMINATED BY '\t'
-	LINES TERMINATED BY '\n';
+	LINES TERMINATED BY '\n'
+	IGNORE 1 LINES;
+
+SELECT CONCAT("hmmscan_min_evalue table has ", COUNT(*), " rows") FROM hmmscan_min_evalue;
+
+SELECT * FROM hmmscan_min_evalue LIMIT 5;
 
 DROP TABLE IF EXISTS release_catalog;
 CREATE TABLE `release_catalog` (
@@ -43,6 +48,21 @@ CREATE TABLE `release_catalog` (
 LOAD DATA LOCAL INFILE '/work/data/NCBI_plasmids/plasmids.catalog' INTO TABLE release_catalog
 	FIELDS TERMINATED BY '\t'
 	LINES TERMINATED BY '\n';
+
+SELECT CONCAT("release_catalog table has ", COUNT(*), " rows") FROM release_catalog;
+
+SELECT * FROM release_catalog LIMIT 5;
+
+DROP TABLE IF EXISTS hmmscan_min_evalue_release_catalog;
+CREATE TABLE hmmscan_min_evalue_release_catalog AS
+	SELECT * FROM hmmscan_min_evalue AS h
+		INNER JOIN release_catalog AS o ON h.query = o.id
+		INNER JOIN lineages AS l ON o.taxid = l.tax_id
+;
+
+SELECT CONCAT("hmmscan_min_evalue_release_catalog table has ", COUNT(*), " rows") FROM hmmscan_min_evalue_release_catalog;
+
+SELECT * FROM hmmscan_min_evalue_release_catalog LIMIT 5;
 
 DROP TABLE IF EXISTS lineages;
 CREATE TABLE `lineages` (
@@ -104,12 +124,20 @@ CREATE TABLE `lineages` (
 
 LOAD DATA LOCAL INFILE 'lineages-2017-08-07.csv' INTO TABLE lineages
 	FIELDS TERMINATED BY ','
-	LINES TERMINATED BY '\n';
+	LINES TERMINATED BY '\n'
+	IGNORE 1 LINES;
 
+SELECT CONCAT("lineages table has ", COUNT(*), " rows") FROM lineages;
+
+SELECT * FROM lineages LIMIT 5;
 
 DROP TABLE IF EXISTS master;
 CREATE TABLE master AS
 	SELECT * FROM hmmscan_min_evalue AS h
-		INNER JOIN release_catalog AS o ON h.target = o.id
+		INNER JOIN release_catalog AS o ON h.query = o.id
 		INNER JOIN lineages AS l ON o.taxid = l.tax_id
 ;
+
+SELECT CONCAT("master table has ", COUNT(*), " rows") FROM master;
+
+SELECT * FROM master LIMIT 5;
