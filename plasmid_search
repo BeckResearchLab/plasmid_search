@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mysql -h mysql plasmid_search < plasmid_search.sql
